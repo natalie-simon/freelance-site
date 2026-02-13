@@ -9,16 +9,7 @@
     />
 
     <!-- Services Section -->
-    <section id="services" class="min-h-screen flex items-center justify-center bg-base-900">
-      <div class="container-narrow section-padding">
-        <UiSectionTitle
-          title="Services"
-          subtitle="Solutions backend sur mesure"
-          accent
-        />
-        <p class="text-content-secondary">Contenu à venir...</p>
-      </div>
-    </section>
+    <ServicesSection />
 
     <!-- About Section -->
     <section id="about" class="min-h-screen flex items-center justify-center bg-base-950">
@@ -60,6 +51,8 @@
 
 <script setup lang="ts">
 import HeroSection from '@/components/sections/HeroSection.vue'
+import ServicesSection from '@/components/sections/ServicesSection.vue'
+
 useSeoMeta({
   title: 'Natalie Simon — Consultante Backend / API & Architecture',
   description:
