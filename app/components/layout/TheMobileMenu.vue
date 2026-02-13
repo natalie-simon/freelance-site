@@ -7,6 +7,7 @@ interface NavLink {
 interface Props {
   isOpen: boolean
   navLinks: NavLink[]
+  activeSection?: string
 }
 
 const props = defineProps<Props>()
@@ -86,7 +87,12 @@ onUnmounted(() => {
                 v-for="link in navLinks"
                 :key="link.href"
                 :href="link.href"
-                class="text-2xl text-content-primary hover:text-accent transition-colors duration-200"
+                :class="[
+                  'text-2xl transition-colors duration-200',
+                  activeSection === link.href
+                    ? 'text-accent font-medium'
+                    : 'text-content-primary hover:text-accent',
+                ]"
                 @click.prevent="emit('navigate', link.href)"
               >
                 {{ link.label }}

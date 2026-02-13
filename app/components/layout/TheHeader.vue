@@ -3,6 +3,7 @@ import TheMobileMenu from './TheMobileMenu.vue';
 
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
+const activeSection = ref('')
 
 const navLinks = [
   { label: 'Services', href: '#services' },
@@ -30,8 +31,27 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   handleScroll()
 
+  // Intersection Observer pour détecter la section active
+  const sections = document.querySelectorAll('section[id]')
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0,
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        activeSection.value = `#${entry.target.id}`
+      }
+    })
+  }, observerOptions)
+
+  sections.forEach((section) => observer.observe(section))
+
   onUnmounted(() => {
     window.removeEventListener('scroll', handleScroll)
+    sections.forEach((section) => observer.unobserve(section))
   })
 })
 </script>
@@ -61,7 +81,12 @@ onMounted(() => {
             v-for="link in navLinks"
             :key="link.href"
             :href="link.href"
-            class="text-sm text-content-secondary hover:text-accent transition-colors duration-200"
+            :class="[
+              'text-sm transition-colors duration-200',
+              activeSection === link.href
+                ? 'text-accent font-medium'
+                : 'text-content-secondary hover:text-accent',
+            ]"
             @click.prevent="scrollToSection(link.href)"
           >
             {{ link.label }}
@@ -89,6 +114,7 @@ onMounted(() => {
     <TheMobileMenu
       :is-open="isMobileMenuOpen"
       :nav-links="navLinks"
+      :active-section="activeSection"
       @close="isMobileMenuOpen = false"
       @navigate="handleNavClick"
     />
