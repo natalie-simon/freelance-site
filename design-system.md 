@@ -1,0 +1,365 @@
+# Design System — nataliesimon.fr
+
+> Document de référence pour l'implémentation front du site vitrine.
+> Stack : **Nuxt 4** (SSG) + TailwindCSS + Nuxt Content.
+> À utiliser comme source unique de vérité pour chaque composant.
+
+---
+
+## 1. Philosophie visuelle
+
+**Positionnement** : Consultante backend senior — fiable, structurée, technique.
+
+Le site doit transmettre trois choses en 3 secondes :
+- **Compétence technique** → design épuré, sans fioritures
+- **Rigueur professionnelle** → alignements stricts, hiérarchie typographique claire
+- **Accessibilité humaine** → ton pro mais pas froid, touches de couleur chaleureuses
+
+**Références stylistiques** : documentation technique haut de gamme (style Stripe, Linear, Vercel). Pas un portfolio créatif, pas un template corporate générique.
+
+---
+
+## 2. Palette de couleurs
+
+### Principe
+Thème sombre dominant, inspiré de la colonne latérale du CV (bleu marine profond), avec un accent **teal/cyan** qui évoque la précision technique sans tomber dans le bleu générique.
+
+### Tokens Tailwind (`tailwind.config.ts`)
+
+```ts
+colors: {
+  // ── Fond principal (dark) ──────────────────────────
+  base: {
+    950: '#0B0F1A',  // Fond page (quasi-noir bleuté)
+    900: '#111827',  // Fond sections alternées
+    800: '#1E293B',  // Fond cartes / surfaces élevées
+    700: '#334155',  // Fond hover cartes
+  },
+
+  // ── Texte ──────────────────────────────────────────
+  content: {
+    primary:   '#F1F5F9',  // Titres, texte principal (slate-100)
+    secondary: '#94A3B8',  // Sous-titres, texte secondaire (slate-400)
+    muted:     '#64748B',  // Labels, placeholders (slate-500)
+  },
+
+  // ── Accent (teal/cyan) ─────────────────────────────
+  accent: {
+    DEFAULT: '#2DD4BF',  // CTA, liens, éléments interactifs (teal-400)
+    light:   '#5EEAD4',  // Hover liens (teal-300)
+    dark:    '#0D9488',  // Pressed / visited (teal-600)
+    subtle:  '#0D9488/15', // Fond badge, highlight léger (teal-600 à 15%)
+  },
+
+  // ── Bordures & séparateurs ─────────────────────────
+  border: {
+    DEFAULT: '#1E293B',  // Bordure par défaut (slate-800)
+    hover:   '#334155',  // Bordure hover (slate-700)
+    accent:  '#2DD4BF',  // Bordure focus / active
+  },
+}
+```
+
+### Pourquoi teal/cyan ?
+- Contraste excellent sur fond sombre (ratio WCAG AAA)
+- Connote la technologie et la précision (évoque le terminal, le code)
+- Se différencie du bleu classique (trop corporate) et du violet (trop créatif)
+- Rappelle subtilement la palette du CV tout en la modernisant
+
+---
+
+## 3. Typographie
+
+### Polices
+
+| Usage | Police | Poids | Fallback |
+|---|---|---|---|
+| Titres (h1-h3) | **Inter** | 700 (Bold) | system-ui, sans-serif |
+| Sous-titres (h4-h6) | **Inter** | 600 (SemiBold) | system-ui, sans-serif |
+| Corps de texte | **Inter** | 400 (Regular) | system-ui, sans-serif |
+| Code / technique | **JetBrains Mono** | 400 | monospace |
+
+> **Inter** : sobre, hautement lisible, excellente prise en charge des caractères français (accents), très bien connue des LLMs pour la génération.
+> **JetBrains Mono** : pour les snippets de code et les éléments techniques (stack, tags). Renforce le positionnement dev.
+
+### Échelle typographique (Tailwind)
+
+```
+text-5xl  → h1 Hero (3rem / 48px) — line-height: 1.1
+text-4xl  → h1 Pages (2.25rem / 36px) — line-height: 1.2
+text-2xl  → h2 Sections (1.5rem / 24px) — line-height: 1.3
+text-xl   → h3 Sous-sections (1.25rem / 20px) — line-height: 1.4
+text-base → Paragraphes (1rem / 16px) — line-height: 1.7
+text-sm   → Labels, meta (0.875rem / 14px) — line-height: 1.5
+text-xs   → Badges, tags (0.75rem / 12px) — line-height: 1.5
+```
+
+### Règles
+- **Titres** : toujours en `content-primary` (#F1F5F9), jamais d'italique
+- **Corps** : en `content-secondary` (#94A3B8) pour le confort de lecture sur fond sombre
+- **Liens** : en `accent` (#2DD4BF), underline au hover uniquement
+- **Code inline** : `JetBrains Mono`, fond `base-800`, padding `px-1.5 py-0.5`, border-radius `rounded`
+- **Pas de texte justifié** — toujours aligné à gauche
+
+---
+
+## 4. Espacements & Layout
+
+### Grille
+
+```
+Container : max-w-6xl (1152px) mx-auto px-6
+Colonnes  : grid Tailwind, responsive
+  - Mobile  : 1 col (grid-cols-1)
+  - Tablet  : 2 cols (md:grid-cols-2)
+  - Desktop : 3 cols pour cartes, 2 cols pour texte+visuel
+```
+
+### Espacements verticaux
+
+```
+Entre sections pleine page : py-24 (6rem)
+Entre blocs dans une section : space-y-16 (4rem)
+Entre éléments d'un bloc : space-y-6 (1.5rem)
+Padding interne cartes : p-6 (1.5rem)
+Gap grilles : gap-8 (2rem)
+```
+
+### Règle de respiration
+Le site doit respirer. En cas de doute, **plus d'espace** vaut toujours mieux que moins. Le whitespace renforce la perception de rigueur et de clarté.
+
+---
+
+## 5. Composants UI
+
+### Boutons
+
+**Primaire (CTA)**
+```html
+<button class="bg-accent text-base-950 font-semibold px-6 py-3 rounded-lg
+               hover:bg-accent-light transition-colors duration-200">
+  Me contacter
+</button>
+```
+
+**Secondaire (outline)**
+```html
+<button class="border border-accent text-accent font-medium px-6 py-3 rounded-lg
+               hover:bg-accent/10 transition-colors duration-200">
+  Voir mes services
+</button>
+```
+
+**Tertiaire (ghost/lien)**
+```html
+<a class="text-accent hover:text-accent-light underline-offset-4
+          hover:underline transition-colors duration-200">
+  En savoir plus →
+</a>
+```
+
+### Cartes
+
+```html
+<div class="bg-base-800 border border-border rounded-xl p-6
+            hover:border-border-hover transition-colors duration-200">
+  <!-- contenu -->
+</div>
+```
+
+- Pas d'ombres (shadow) — on est sur du flat, les bordures suffisent sur fond sombre
+- Border-radius : `rounded-xl` (12px) pour les cartes, `rounded-lg` (8px) pour les boutons/badges
+- Hover : changement de bordure subtil, jamais de scale ou de rotation
+
+### Badges / Tags (stack technique)
+
+```html
+<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium
+             bg-accent/10 text-accent border border-accent/20">
+  NestJS
+</span>
+```
+
+### Séparateurs
+
+```html
+<hr class="border-border my-16" />
+```
+
+Ou séparation visuelle par alternance de fonds : `base-950` / `base-900`.
+
+---
+
+## 6. Iconographie
+
+- **Bibliothèque** : Lucide Icons via `@nuxt/icon`
+- **Usage** : `<Icon name="lucide:code" />` (syntaxe Nuxt 4 / @nuxt/icon)
+- **Taille par défaut** : 20px (`w-5 h-5`)
+- **Couleur** : `content-muted` par défaut, `accent` pour les icônes interactives
+- **Style** : stroke uniquement (outline), jamais filled — cohérence avec le style épuré
+- **Pas de photos stock** — utiliser des icônes et des schémas techniques
+
+---
+
+## 7. Animations & Transitions
+
+### Principes
+- **Subtilité** : le site doit faire "sérieux technique", pas "portfolio d'animateur"
+- **Performance** : uniquement des propriétés GPU-friendly (transform, opacity)
+- **Pas de surprise** : respecter `prefers-reduced-motion`
+
+### Transitions globales
+```css
+transition-colors duration-200   /* Hovers boutons, liens, cartes */
+transition-opacity duration-300  /* Apparitions */
+```
+
+### Apparition au scroll (AOS - Animate on Scroll)
+```
+Effet    : fade-up (translateY 20px → 0 + opacity 0 → 1)
+Durée    : 500ms
+Easing   : ease-out
+Décalage : 100ms entre éléments d'une grille (stagger)
+Trigger  : une seule fois (pas de re-animation au scroll up)
+```
+
+### Ce qu'on NE fait PAS
+- Parallax
+- Animations de texte lettre par lettre
+- Effets 3D / tilt
+- Transitions de page élaborées
+- Canvas / particles en fond
+
+---
+
+## 8. Responsive & Breakpoints
+
+Utiliser les breakpoints Tailwind par défaut :
+
+```
+sm  : 640px   (mobile large)
+md  : 768px   (tablette)
+lg  : 1024px  (desktop)
+xl  : 1280px  (grand écran)
+```
+
+### Règles mobile-first
+- Navigation : hamburger menu en dessous de `md`
+- Hero : texte centré sur mobile, aligné gauche sur desktop
+- Grilles : 1 col mobile → 2 cols tablette → 3 cols desktop
+- Taille typo : réduire d'un cran les titres sur mobile (`text-5xl` → `text-3xl`)
+- Les CTA doivent être **full-width sur mobile** (`w-full md:w-auto`)
+
+---
+
+## 9. SEO & Performance
+
+- **Score Lighthouse cible** : > 95 sur les 4 catégories
+- **Images** : format WebP via Nuxt Image, lazy loading natif
+- **Polices** : chargement via `@fontsource/inter` et `@fontsource/jetbrains-mono` (auto-hébergé, pas de Google Fonts CDN)
+- **Meta** : Nuxt SEO pour meta tags, OG image, sitemap.xml
+- **Accessibilité** : contraste WCAG AA minimum, navigation clavier, aria-labels sur les icônes
+
+---
+
+## 10. Structure des fichiers composants (Nuxt 4)
+
+```
+app/components/
+├── layout/
+│   ├── TheHeader.vue
+│   ├── TheFooter.vue
+│   └── TheMobileMenu.vue
+├── sections/
+│   ├── HeroSection.vue
+│   ├── ServicesSection.vue
+│   ├── WhyMeSection.vue
+│   ├── AboutSection.vue
+│   ├── StackSection.vue
+│   ├── CasesSection.vue
+│   └── ContactSection.vue
+├── ui/
+│   ├── UiButton.vue
+│   ├── UiCard.vue
+│   ├── UiBadge.vue
+│   ├── UiSectionTitle.vue
+│   └── UiAnimateOnScroll.vue
+└── content/
+    └── CaseStudyCard.vue
+```
+
+> Tous les composants sont dans `app/components/`. L'alias `~` pointe vers `app/` en Nuxt 4.
+
+---
+
+## 11. Contenu textuel — Guidelines
+
+### Ton éditorial
+- **Voix** : professionnelle, directe, confiante sans arrogance
+- **Pronom** : "je" (pas "nous", c'est du freelance solo)
+- **Temps** : présent d'action ("je conçois", "je livre")
+- **Phrase type** : courte, active, orientée résultat client
+
+### Exemples de formulations
+
+| ❌ À éviter | ✅ Préférer |
+|---|---|
+| "Passionnée par le développement" | "8 ans d'expérience en conception d'API fiables" |
+| "N'hésitez pas à me contacter" | "Disponible pour démarrage rapide — soirs & week-ends" |
+| "Je suis polyvalente" | "Spécialisée backend : API REST, refonte, intégrations" |
+| "Développeuse fullstack" | "Consultante Backend / API & Architecture" |
+
+---
+
+## 12. Récapitulatif des tokens Tailwind à configurer
+
+```ts
+// tailwind.config.ts — fichier complet
+import type { Config } from 'tailwindcss'
+
+export default {
+  content: [
+    './app/components/**/*.vue',
+    './app/layouts/**/*.vue',
+    './app/pages/**/*.vue',
+    './app/app.vue',
+    './content/**/*.md',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        base: {
+          950: '#0B0F1A',
+          900: '#111827',
+          800: '#1E293B',
+          700: '#334155',
+        },
+        content: {
+          primary: '#F1F5F9',
+          secondary: '#94A3B8',
+          muted: '#64748B',
+        },
+        accent: {
+          DEFAULT: '#2DD4BF',
+          light: '#5EEAD4',
+          dark: '#0D9488',
+        },
+        border: {
+          DEFAULT: '#1E293B',
+          hover: '#334155',
+          accent: '#2DD4BF',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
+    },
+  },
+} satisfies Config
+```
+
+---
+
+*Document vivant — à mettre à jour au fil de l'implémentation.*
+*Dernière mise à jour : 13 février 2026 — Adapté Nuxt 4*

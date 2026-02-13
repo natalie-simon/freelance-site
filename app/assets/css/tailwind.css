@@ -1,0 +1,54 @@
+/* Polices auto-hébergées */
+@import '@fontsource-variable/inter';
+@import '@fontsource/jetbrains-mono'; 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Base globale */
+@layer base {
+  body {
+    @apply bg-base-950 text-content-secondary font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-content-primary font-bold;
+  }
+
+  a {
+    @apply text-accent transition-colors duration-200;
+  }
+
+  a:hover {
+    @apply text-accent-light;
+  }
+
+  ::selection {
+    @apply bg-accent/20 text-content-primary;
+  }
+
+  /* Respect prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Utilitaires custom */
+@layer utilities {
+  .section-padding {
+    @apply py-24 px-6;
+  }
+
+  .container-narrow {
+    @apply max-w-6xl mx-auto;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-accent to-accent-light bg-clip-text text-transparent;
+  }
+}

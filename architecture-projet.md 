@@ -1,0 +1,356 @@
+# Design System — nataliesimon.fr
+
+## 1. Direction artistique
+
+**Ton** : Professionnel, technique, épuré. Le site doit communiquer la rigueur d'une architecte backend — précision, structure, fiabilité.
+
+**Esthétique** : Minimalisme technique raffiné. Pas de fioritures, pas de photos stock. Des lignes nettes, de l'espace négatif généreux, une typographie soignée. Le design reflète la qualité du code.
+
+**Inspiration** : Un terminal bien configuré, une documentation technique élégante, un dashboard sobre.
+
+---
+
+## 2. Palette de couleurs — WCAG AA compliant
+
+### Principes
+- Ratio minimum **4.5:1** pour tout texte normal
+- Ratio minimum **3:1** pour le texte large (≥ 18px bold ou ≥ 24px)
+- Chaque couleur testée dans les **deux thèmes**
+- Couleur d'accent : **Indigo profond** (variante du violet tech, meilleur contraste natif)
+
+### Thème Clair (défaut)
+
+```css
+:root {
+  /* Fonds */
+  --bg-primary: #FFFFFF;           /* Fond principal */
+  --bg-secondary: #F8F9FB;         /* Fond sections alternées */
+  --bg-tertiary: #F1F3F7;          /* Fond cartes, blocs */
+  --bg-code: #1E1E2E;              /* Fond blocs de code */
+
+  /* Textes */
+  --text-primary: #111827;         /* Texte principal — ratio 15.4:1 sur blanc ✓ */
+  --text-secondary: #4B5563;       /* Texte secondaire — ratio 7.5:1 sur blanc ✓ */
+  --text-tertiary: #6B7280;        /* Légendes, metadata — ratio 5.0:1 sur blanc ✓ */
+  --text-on-accent: #FFFFFF;       /* Texte sur boutons accent */
+
+  /* Accent — Indigo */
+  --accent-primary: #4338CA;       /* Boutons, liens principaux — ratio 8.2:1 sur blanc ✓ */
+  --accent-hover: #3730A3;         /* Hover état — ratio 9.8:1 sur blanc ✓ */
+  --accent-light: #E0E7FF;         /* Fond badge, highlight léger */
+  --accent-subtle: #EEF2FF;        /* Fond très léger pour sections accent */
+
+  /* Bordures & séparateurs */
+  --border-default: #E5E7EB;
+  --border-strong: #D1D5DB;
+
+  /* États */
+  --success: #047857;              /* ratio 5.9:1 sur blanc ✓ */
+  --error: #B91C1C;                /* ratio 6.5:1 sur blanc ✓ */
+
+  /* Ombres */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+```
+
+### Thème Sombre
+
+```css
+[data-theme="dark"] {
+  /* Fonds */
+  --bg-primary: #0F111A;           /* Fond principal */
+  --bg-secondary: #161926;         /* Fond sections alternées */
+  --bg-tertiary: #1E2235;          /* Fond cartes, blocs */
+  --bg-code: #0D0F17;              /* Fond blocs de code */
+
+  /* Textes */
+  --text-primary: #F1F3F7;         /* Texte principal — ratio 15.1:1 sur #0F111A ✓ */
+  --text-secondary: #A1A7B8;       /* Texte secondaire — ratio 7.2:1 sur #0F111A ✓ */
+  --text-tertiary: #7C839A;        /* Légendes — ratio 4.6:1 sur #0F111A ✓ */
+  --text-on-accent: #FFFFFF;
+
+  /* Accent — Indigo clair (inversé pour dark) */
+  --accent-primary: #818CF8;       /* ratio 6.8:1 sur #0F111A ✓ */
+  --accent-hover: #A5B4FC;         /* ratio 9.1:1 sur #0F111A ✓ */
+  --accent-light: #1E1B4B;         /* Fond badge sombre */
+  --accent-subtle: #1A1744;        /* Fond section accent sombre */
+
+  /* Bordures */
+  --border-default: #2A2F45;
+  --border-strong: #3B4160;
+
+  /* États */
+  --success: #34D399;              /* ratio 8.5:1 sur #0F111A ✓ */
+  --error: #F87171;                /* ratio 5.7:1 sur #0F111A ✓ */
+
+  /* Ombres */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+```
+
+### Mapping Tailwind (tailwind.config.ts)
+
+```ts
+// Utiliser les CSS variables via le plugin Tailwind
+// Exemple: bg-primary, text-accent, border-default
+// Cela permet le switch de thème sans dupliquer les classes
+```
+
+---
+
+## 3. Typographie
+
+### Police : Geist (par Vercel)
+
+**Pourquoi Geist** : Conçue pour les interfaces techniques, lisibilité excellente, personnalité moderne sans être générique. Disponible via fontsource ou CDN.
+
+```css
+/* Installation via fontsource dans Nuxt */
+/* npm install @fontsource-variable/geist-sans @fontsource-variable/geist-mono */
+
+:root {
+  --font-sans: 'Geist Sans Variable', system-ui, sans-serif;
+  --font-mono: 'Geist Mono Variable', 'Fira Code', monospace;
+}
+```
+
+### Échelle typographique
+
+| Token          | Taille   | Line-height | Weight | Usage                        |
+|----------------|----------|-------------|--------|------------------------------|
+| `text-hero`    | 3.5rem   | 1.1         | 700    | Titre hero uniquement        |
+| `text-h1`      | 2.25rem  | 1.2         | 700    | Titres de section            |
+| `text-h2`      | 1.5rem   | 1.3         | 600    | Sous-titres                  |
+| `text-h3`      | 1.25rem  | 1.4         | 600    | Titres de cartes             |
+| `text-body`    | 1rem     | 1.6         | 400    | Texte courant                |
+| `text-small`   | 0.875rem | 1.5         | 400    | Metadata, légendes           |
+| `text-caption` | 0.75rem  | 1.4         | 500    | Tags, badges                 |
+| `text-code`    | 0.875rem | 1.6         | 400    | Blocs de code (Geist Mono)   |
+
+### Règles typographiques
+- **Titres** : Geist Sans, bold/semibold, `--text-primary`
+- **Corps** : Geist Sans, regular, `--text-secondary` pour le contenu long
+- **Code inline** : Geist Mono, fond `--bg-tertiary`, padding 2px 6px, border-radius 4px
+- **Blocs de code** : Geist Mono, fond `--bg-code`, texte clair
+- **Largeur max de lecture** : 65ch pour le texte courant (confort de lecture)
+
+---
+
+## 4. Espacements
+
+### Échelle (base 4px)
+
+| Token   | Valeur | Usage typique              |
+|---------|--------|----------------------------|
+| `xs`    | 4px    | Padding interne badges     |
+| `sm`    | 8px    | Gap entre éléments proches |
+| `md`    | 16px   | Padding cartes, gaps       |
+| `lg`    | 24px   | Espacement sections inner  |
+| `xl`    | 32px   | Séparation blocs           |
+| `2xl`   | 48px   | Marge entre sections       |
+| `3xl`   | 64px   | Padding section desktop    |
+| `4xl`   | 96px   | Espacement hero            |
+
+### Conteneur
+- **Max-width** : 1200px
+- **Padding horizontal** : 24px mobile, 48px tablet, 64px desktop
+- **Centré** avec `margin: 0 auto`
+
+---
+
+## 5. Composants de base
+
+### Boutons
+
+```
+Primaire :
+  - Fond: var(--accent-primary)
+  - Texte: var(--text-on-accent)
+  - Padding: 12px 24px
+  - Border-radius: 8px
+  - Hover: var(--accent-hover)
+  - Transition: 150ms ease
+  - Focus: ring 2px offset 2px var(--accent-primary)
+
+Secondaire :
+  - Fond: transparent
+  - Bordure: 1px solid var(--border-strong)
+  - Texte: var(--text-primary)
+  - Hover: fond var(--bg-tertiary)
+
+Ghost :
+  - Fond: transparent
+  - Texte: var(--accent-primary)
+  - Hover: fond var(--accent-subtle)
+```
+
+### Cartes
+
+```
+- Fond: var(--bg-primary)
+- Bordure: 1px solid var(--border-default)
+- Border-radius: 12px
+- Padding: 24px
+- Shadow: var(--shadow-sm)
+- Hover: shadow var(--shadow-md), border var(--border-strong)
+- Transition: 200ms ease
+```
+
+### Badges / Tags
+
+```
+- Fond: var(--accent-light)
+- Texte: var(--accent-primary)
+- Padding: 4px 12px
+- Border-radius: 9999px (pill)
+- Font: text-caption, weight 500
+```
+
+### Toggle thème (dark/light)
+
+```
+- Icône soleil/lune
+- Position: header, côté droit
+- Détection auto via prefers-color-scheme au chargement
+- Sauvegarde préférence dans localStorage
+- Transition douce sur tout le body (200ms)
+```
+
+---
+
+## 6. Animations & micro-interactions
+
+### Principes
+- **Subtilité** : pas de rebonds, pas de rotations excessives
+- **Performance** : uniquement `transform` et `opacity` (GPU-accelerated)
+- **Respect `prefers-reduced-motion`** : désactiver toutes les animations si activé
+
+### Animations prévues
+
+| Élément                  | Animation                                      | Durée  |
+|--------------------------|-------------------------------------------------|--------|
+| Apparition au scroll     | Fade-in + translateY(20px → 0)                  | 500ms  |
+| Cartes hover             | Shadow elevation + léger scale(1.02)            | 200ms  |
+| Boutons hover            | Changement de fond                              | 150ms  |
+| Navigation links         | Underline animé (width 0 → 100%)                | 300ms  |
+| Hero title               | Staggered fade-in par mot                       | 800ms  |
+| Toggle thème             | Rotation icône + crossfade                      | 300ms  |
+| Bloc de code             | Typing effect optionnel (hero seulement)        | 2000ms |
+
+### CSS
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+---
+
+## 7. Accessibilité WCAG 2 AA — Checklist
+
+### Couleurs & contrastes
+- [x] Ratio 4.5:1 minimum pour texte normal (vérifié dans les deux thèmes)
+- [x] Ratio 3:1 minimum pour texte large et éléments d'interface
+- [x] Information jamais transmise uniquement par la couleur
+- [x] Palette testée en simulation daltonisme (protanopie, deutéranopie, tritanopie)
+
+### Navigation & interaction
+- [ ] Navigation complète au clavier (Tab, Shift+Tab, Enter, Escape)
+- [ ] Focus visible sur tous les éléments interactifs (outline 2px)
+- [ ] Skip-to-content link en haut de page
+- [ ] Ordre de tabulation logique (DOM order = visual order)
+- [ ] ARIA labels sur les éléments interactifs sans texte visible
+
+### Contenu
+- [ ] Texte redimensionnable à 200% sans perte de contenu
+- [ ] Images avec attributs alt descriptifs
+- [ ] Liens avec texte explicite (pas de "cliquez ici")
+- [ ] Langue déclarée (`<html lang="fr">`)
+- [ ] Titres hiérarchiques (h1 → h2 → h3, pas de saut)
+
+### Composants
+- [ ] Toggle thème : `aria-label="Basculer le thème"`, `role="switch"`
+- [ ] Menu mobile : `aria-expanded`, `aria-controls`, fermeture Escape
+- [ ] Formulaire : labels associés, messages d'erreur liés via `aria-describedby`
+
+---
+
+## 8. Responsive breakpoints
+
+| Breakpoint | Valeur   | Usage              |
+|------------|----------|--------------------|
+| `mobile`   | < 640px  | 1 colonne, nav burger |
+| `tablet`   | ≥ 640px  | 2 colonnes           |
+| `desktop`  | ≥ 1024px | Layout complet        |
+| `wide`     | ≥ 1280px | Conteneur max         |
+
+### Approche : Mobile-first
+- CSS de base = mobile
+- Media queries pour élargir progressivement
+- Tailwind classes : `sm:`, `md:`, `lg:`, `xl:`
+
+---
+
+## 9. Iconographie
+
+**Set recommandé : Lucide Icons**
+- Open source, cohérent, léger (tree-shakeable)
+- Style linéaire qui s'accorde avec l'esthétique technique
+- Disponible via `nuxt-icon` ou import direct
+
+### Icônes prévues
+
+| Usage                  | Icône Lucide           |
+|------------------------|------------------------|
+| API / Endpoints        | `globe`, `plug`        |
+| Architecture           | `blocks`, `layers`     |
+| Debug                  | `bug`, `search-code`   |
+| Intégration            | `git-merge`, `link`    |
+| Contact / Email        | `mail`                 |
+| Téléphone              | `phone`                |
+| LinkedIn               | `linkedin`             |
+| GitHub                 | `github`               |
+| Calendrier / RDV       | `calendar`             |
+| Téléchargement CV      | `download`             |
+| Thème sombre/clair     | `sun`, `moon`          |
+| Menu mobile            | `menu`, `x`            |
+| Flèche CTA             | `arrow-right`          |
+| Check / Validation     | `check-circle`         |
+
+---
+
+## 10. SEO & Performance
+
+### Meta tags essentiels
+```html
+<title>Natalie Simon — Consultante Backend / API & Architecture</title>
+<meta name="description" content="Freelance backend spécialisée API REST, refonte d'architecture et intégration de services. 8+ ans d'expérience. Disponible soirs et week-ends.">
+<meta property="og:title" content="Natalie Simon — Backend / API & Architecture">
+<meta property="og:description" content="Consultante freelance backend. API REST, refonte, intégration. Opérationnelle immédiatement.">
+<meta property="og:image" content="/og-image.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://nataliesimon.fr">
+```
+
+### Performance cibles
+- Lighthouse Performance : > 95
+- Lighthouse Accessibility : > 95
+- LCP (Largest Contentful Paint) : < 2.5s
+- CLS (Cumulative Layout Shift) : < 0.1
+- FID (First Input Delay) : < 100ms
+
+### Modules Nuxt SEO
+- `@nuxtjs/sitemap`
+- `nuxt-og-image`
+- `@nuxtjs/robots`
+- Schema.org structured data (JSON-LD : Person, ProfessionalService)
