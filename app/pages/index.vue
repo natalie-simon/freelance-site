@@ -1,17 +1,12 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-content-primary mb-4">
-          Natalie Simon
-        </h1>
-        <p class="text-xl text-accent mb-2">Consultante Backend Freelance</p>
-        <p class="text-content-secondary">
-          Site en construction — Layout prêt
-        </p>
-      </div>
-    </section>
+    <HeroSection
+      title="Natalie Simon"
+      subtitle="Consultante Backend Freelance"
+      description="Conception d'API REST, refonte de systèmes existants, intégrations. Disponible soirs & week-ends."
+      :show-cta="true"
+    />
 
     <!-- Services Section -->
     <section id="services" class="min-h-screen flex items-center justify-center bg-base-900">
@@ -64,6 +59,7 @@
 </template>
 
 <script setup lang="ts">
+import HeroSection from '@/components/sections/HeroSection.vue'
 useSeoMeta({
   title: 'Natalie Simon — Consultante Backend / API & Architecture',
   description:
