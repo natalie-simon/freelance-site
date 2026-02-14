@@ -14,6 +14,9 @@
     <!-- About / Why Me Section -->
     <WhyMeSection />
 
+    <!-- About / Bio Section -->
+    <AboutSection />
+
     <!-- Cases Section -->
     <section id="cases" class="min-h-screen flex items-center justify-center bg-base-900">
       <div class="container-narrow section-padding">
@@ -44,6 +47,7 @@
 import HeroSection from '@/components/sections/HeroSection.vue'
 import ServicesSection from '@/components/sections/ServicesSection.vue'
 import WhyMeSection from '@/components/sections/WhyMeSection.vue'
+import AboutSection from '@/components/sections/AboutSection.vue'
 import UiSectionTitle from '@/components/ui/UiSectionTitle.vue'
 
 useSeoMeta({
