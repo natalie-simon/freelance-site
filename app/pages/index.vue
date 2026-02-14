@@ -11,17 +11,8 @@
     <!-- Services Section -->
     <ServicesSection />
 
-    <!-- About Section -->
-    <section id="about" class="min-h-screen flex items-center justify-center bg-base-950">
-      <div class="container-narrow section-padding">
-        <UiSectionTitle
-          title="À propos"
-          subtitle="Expérience et expertise"
-          accent
-        />
-        <p class="text-content-secondary">Contenu à venir...</p>
-      </div>
-    </section>
+    <!-- About / Why Me Section -->
+    <WhyMeSection />
 
     <!-- Cases Section -->
     <section id="cases" class="min-h-screen flex items-center justify-center bg-base-900">
@@ -52,6 +43,8 @@
 <script setup lang="ts">
 import HeroSection from '@/components/sections/HeroSection.vue'
 import ServicesSection from '@/components/sections/ServicesSection.vue'
+import WhyMeSection from '@/components/sections/WhyMeSection.vue'
+import UiSectionTitle from '@/components/ui/UiSectionTitle.vue'
 
 useSeoMeta({
   title: 'Natalie Simon — Consultante Backend / API & Architecture',
