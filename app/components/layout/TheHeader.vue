@@ -68,11 +68,20 @@ onMounted(() => {
     <div class="container-narrow section-padding py-4">
       <nav class="flex items-center justify-between">
         <!-- Logo -->
-        <a href="/" class="flex flex-col">
-          <span class="font-sans font-bold text-content-primary text-lg">
-            Natalie Simon
-          </span>
-          <span class="text-xs text-content-muted">Backend / API</span>
+        <a href="/" class="flex items-center gap-3">
+          <!-- Logo Image -->
+          <img
+            src="/project/logo_ns_tech_refined_dark_1.png"
+            alt="NS Logo"
+            class="h-10 w-auto"
+          />
+          <!-- Text (hidden on mobile) -->
+          <div class="hidden sm:flex flex-col">
+            <span class="font-sans font-bold text-content-primary text-lg leading-tight">
+              Natalie Simon
+            </span>
+            <span class="text-xs text-content-muted">Backend / API</span>
+          </div>
         </a>
 
         <!-- Desktop Navigation -->
