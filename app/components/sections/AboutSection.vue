@@ -1,26 +1,14 @@
 <script setup lang="ts">
-interface TechCategory {
-  title: string
+interface InfoItem {
   icon: string
-  items: string[]
+  text: string
 }
 
-const techStack: TechCategory[] = [
-  {
-    title: 'Langages & Frameworks',
-    icon: 'lucide:code-2',
-    items: ['PHP', 'Laravel', 'NestJS', 'TypeScript'],
-  },
-  {
-    title: 'Databases',
-    icon: 'lucide:database',
-    items: ['PostgreSQL', 'MySQL'],
-  },
-  {
-    title: 'Cloud & APIs',
-    icon: 'lucide:cloud',
-    items: ['REST'],
-  },
+const infoItems: InfoItem[] = [
+  { icon: 'lucide:map-pin', text: 'Hyères (83) — Full remote' },
+  { icon: 'lucide:clock', text: 'Soirs & week-ends' },
+  { icon: 'lucide:rocket', text: 'Démarrage rapide' },
+  { icon: 'lucide:mail', text: 'natalie.simon@gmail.com' },
 ]
 
 // Animation au scroll pour les colonnes
@@ -61,77 +49,72 @@ onMounted(() => {
 </script>
 
 <template>
-  <section class="bg-base-900 py-20 lg:py-32">
+  <section id="about" class="bg-base-950 py-20 lg:py-32">
     <div class="container-narrow section-padding">
       <!-- Titre de section -->
       <UiSectionTitle
-        title="Mon parcours"
-        subtitle="Développeuse backend passionnée"
+        title="À propos"
         accent
       />
 
       <!-- Layout 2 colonnes -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
-        <!-- Colonne gauche: Bio & Expérience -->
+        <!-- Colonne gauche: Texte bio -->
         <div
           ref="leftColRef"
           :class="[
             leftVisible && 'animate-fade-up',
           ]"
         >
-          <h3 class="text-2xl font-bold text-content-primary mb-4">
-            À propos de moi
-          </h3>
-          <div class="space-y-4 text-content-secondary text-lg leading-relaxed">
+          <div class="space-y-4 text-content-secondary leading-relaxed">
             <p>
-              Développeuse backend avec plusieurs années d'expérience, je me spécialise dans la conception d'API robustes et d'architectures scalables.
+              Développeuse backend depuis plus de 8 ans, j'ai travaillé sur des projets allant de la GMAO multi-bases au logiciel métier pour le secteur médical.
             </p>
             <p>
-              Passionnée par les bonnes pratiques et la qualité du code, j'accompagne les entreprises dans leurs projets de refonte et de modernisation technique.
+              Aujourd'hui consultante freelance, j'interviens en renfort sur des projets existants : reprise de code, conception d'API, refactoring, intégrations. Mon approche est simple — je comprends vite, je livre vite, et je m'assure que ce que je livre est maintenable.
             </p>
             <p>
-              Ma disponibilité flexible (soirs & week-ends) me permet de m'adapter à vos contraintes et d'assurer la continuité de vos projets.
+              Disponible en soirs et week-ends, je travaille en full remote et je suis opérationnelle immédiatement.
             </p>
+          </div>
+
+          <!-- Lien téléchargement CV -->
+          <div class="mt-8">
+            <UiButton
+              variant="ghost"
+              as="a"
+              href="/project/NatalieCV.pdf"
+              download
+            >
+              <span class="inline-flex items-center gap-2">
+                <Icon name="lucide:download" class="w-4 h-4" />
+                Télécharger mon CV (PDF)
+              </span>
+            </UiButton>
           </div>
         </div>
 
-        <!-- Colonne droite: Stack Technique -->
+        <!-- Colonne droite: Infos clés -->
         <div
           ref="rightColRef"
           :class="[
             rightVisible && 'animate-fade-up',
           ]"
         >
-          <h3 class="text-2xl font-bold text-content-primary mb-6">
-            Stack technique
-          </h3>
-
-          <!-- Catégories de technologies -->
-          <div class="space-y-6">
-            <div
-              v-for="category in techStack"
-              :key="category.title"
-            >
-              <!-- Titre catégorie avec icon -->
-              <div class="flex items-center gap-2 mb-3">
+          <div class="bg-base-800 rounded-xl p-6">
+            <div class="space-y-4">
+              <div
+                v-for="item in infoItems"
+                :key="item.text"
+                class="flex items-center gap-3"
+              >
                 <Icon
-                  :name="category.icon"
-                  class="w-5 h-5 text-accent"
+                  :name="item.icon"
+                  class="w-5 h-5 text-accent flex-shrink-0"
                 />
-                <h4 class="text-content-primary font-semibold">
-                  {{ category.title }}
-                </h4>
-              </div>
-
-              <!-- Badges technologies -->
-              <div class="flex flex-wrap gap-2">
-                <UiBadge
-                  v-for="item in category.items"
-                  :key="item"
-                  variant="tech"
-                >
-                  {{ item }}
-                </UiBadge>
+                <span class="text-content-secondary text-sm">
+                  {{ item.text }}
+                </span>
               </div>
             </div>
           </div>
