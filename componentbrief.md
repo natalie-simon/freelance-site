@@ -86,7 +86,7 @@
 │  Consultante Backend              Services                  │
 │  API & Architecture               À propos                  │
 │                                   Réalisations              │
-│  natalie.simon@gmail.com          Contact                   │
+│  natalie.simon2201@gmail.com          Contact                   │
 │  07 49 63 49 23                                             │
 │                                   Suivez-moi                │
 │                                   [LinkedIn] [GitHub]       │
@@ -393,7 +393,7 @@ background: radial-gradient(ellipse at 80% 20%, rgba(45, 212, 191, 0.05) 0%, tra
 | `lucide:map-pin` | Hyères (83) — Full remote |
 | `lucide:clock` | Soirs & week-ends |
 | `lucide:rocket` | Démarrage rapide |
-| `lucide:mail` | natalie.simon@gmail.com |
+| `lucide:mail` | natalie.simon2201@gmail.com |
 
 - Icônes `text-accent w-5 h-5`, texte `text-content-secondary text-sm`
 - Espacement `space-y-4`
@@ -571,7 +571,7 @@ Mentions légales
 Natalie Simon — Micro-entreprise
 SIRET : (à compléter)
 Hyères (83)
-natalie.simon@gmail.com · 07 49 63 49 23
+natalie.simon2201@gmail.com · 07 49 63 49 23
 
 Hébergement
 (à compléter)

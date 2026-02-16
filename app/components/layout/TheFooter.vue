@@ -43,10 +43,10 @@ function scrollToSection(href: string) {
           </div>
           <div class="space-y-2 text-content-secondary text-sm">
             <a
-              href="mailto:natalie.simon@gmail.com"
+              href="mailto:natalie.simon2201@gmail.com"
               class="block hover:text-accent transition-colors duration-200"
             >
-              natalie.simon@gmail.com
+              natalie.simon2201@gmail.com
             </a>
             <a
               href="tel:+33749634923"

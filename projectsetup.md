@@ -449,7 +449,7 @@ export default defineEventHandler(async (event) => {
   try {
     await resend.emails.send({
       from: 'Site nataliesimon.fr <contact@nataliesimon.fr>',
-      to: 'natalie.simon@gmail.com',
+      to: 'natalie.simon2201@gmail.com',
       replyTo: email,
       subject: `[Site] Nouveau message de ${name}`,
       html: `

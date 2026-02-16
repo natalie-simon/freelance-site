@@ -8,7 +8,7 @@ const infoItems: InfoItem[] = [
   { icon: 'lucide:map-pin', text: 'Hyères (83) — Full remote' },
   { icon: 'lucide:clock', text: 'Soirs & week-ends' },
   { icon: 'lucide:rocket', text: 'Démarrage rapide' },
-  { icon: 'lucide:mail', text: 'natalie.simon@gmail.com' },
+  { icon: 'lucide:mail', text: 'natalie.simon2201@gmail.com' },
 ]
 
 // Animation au scroll pour les colonnes
