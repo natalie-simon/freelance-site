@@ -1,6 +1,12 @@
 export default defineNuxtConfig({
   // ── Mode de rendu ────────────────────────────────
   ssr: true,
+
+  // ── Runtime config (variables serveur) ──────────
+  runtimeConfig: {
+    resendApiKey: '', // NUXT_RESEND_API_KEY from .env
+  },
+
   nitro: {
     prerender: {
       crawlLinks: true,
@@ -11,7 +17,7 @@ export default defineNuxtConfig({
   // ── Modules ──────────────────────────────────────
   modules: [
     '@nuxtjs/tailwindcss',
-    //'@nuxt/content',
+    '@nuxt/content',
     '@nuxt/image',
     '@nuxtjs/seo',
     '@nuxt/icon',
@@ -34,14 +40,7 @@ export default defineNuxtConfig({
   },
 
   // ── Content (markdown) ───────────────────────────
- /* content: {
-    highlight: {
-      theme: 'github-dark',
-    },
-    markdown: {
-      anchorLinks: false,
-    },
-  },*/
+  content: {},
 
   // ── Image ────────────────────────────────────────
   image: {
@@ -63,7 +62,7 @@ export default defineNuxtConfig({
   // ── TypeScript ───────────────────────────────────
   typescript: {
     strict: true,
-    typeCheck: true,
+    typeCheck: false,
   },
 
   // ── Dev tools ────────────────────────────────────

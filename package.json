@@ -21,6 +21,7 @@
     "@fontsource-variable/inter": "^5.2.8",
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
+    "@iconify-json/lucide": "^1.2.91",
     "@nuxt/content": "^3.11.2",
     "@nuxt/eslint-config": "^1.15.1",
     "@nuxt/icon": "^2.2.1",

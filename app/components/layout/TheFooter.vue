@@ -9,7 +9,7 @@ const quickLinks = [
 const socialLinks = [
   {
     label: 'LinkedIn',
-    href: 'https://linkedin.com/in/natalie-simon',
+    href: 'https://linkedin.com/in/natalie-simon2201',
     icon: 'lucide:linkedin',
   },
   {
@@ -105,12 +105,12 @@ function scrollToSection(href: string) {
       <!-- Bottom Bar -->
       <div class="flex flex-col sm:flex-row justify-between items-center gap-4 text-content-muted text-sm">
         <p>&copy; {{ new Date().getFullYear() }} Natalie Simon</p>
-        <NuxtLink
+        <!--<NuxtLink
           to="/mentions-legales"
           class="hover:text-accent transition-colors duration-200"
         >
           Mentions légales
-        </NuxtLink>
+        </NuxtLink>-->
       </div>
     </div>
   </footer>

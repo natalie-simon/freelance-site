@@ -21,28 +21,10 @@
     <StackSection />
 
     <!-- Cases Section -->
-    <section id="cases" class="min-h-screen flex items-center justify-center bg-base-900">
-      <div class="container-narrow section-padding">
-        <UiSectionTitle
-          title="Réalisations"
-          subtitle="Projets et études de cas"
-          accent
-        />
-        <p class="text-content-secondary">Contenu à venir...</p>
-      </div>
-    </section>
+    <CasesSection />
 
     <!-- Contact Section -->
-    <section id="contact" class="min-h-screen flex items-center justify-center bg-base-950">
-      <div class="container-narrow section-padding">
-        <UiSectionTitle
-          title="Contact"
-          subtitle="Discutons de votre projet"
-          accent
-        />
-        <p class="text-content-secondary">Contenu à venir...</p>
-      </div>
-    </section>
+    <ContactSection />
   </div>
 </template>
 
@@ -52,7 +34,8 @@ import ServicesSection from '@/components/sections/ServicesSection.vue'
 import WhyMeSection from '@/components/sections/WhyMeSection.vue'
 import AboutSection from '@/components/sections/AboutSection.vue'
 import StackSection from '@/components/sections/StackSection.vue'
-import UiSectionTitle from '@/components/ui/UiSectionTitle.vue'
+import ContactSection from '@/components/sections/ContactSection.vue'
+import CasesSection from '@/components/sections/CasesSection.vue'
 
 useSeoMeta({
   title: 'Natalie Simon — Consultante Backend / API & Architecture',
